@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>base_project_CSharp.API</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\base-project-CSharp.Communication\base-project-CSharp.Communication.csproj" />
+    <ProjectReference Include="..\..\Shared\base-project-CSharp.Exceptions\base-project-CSharp.Exceptions.csproj" />
+    <ProjectReference Include="..\base-project-CSharp.Application\base-project-CSharp.Application.csproj" />
+  </ItemGroup>
+
+</Project>

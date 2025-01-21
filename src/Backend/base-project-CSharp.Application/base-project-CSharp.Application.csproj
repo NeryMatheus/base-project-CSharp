@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>base_project_CSharp.Application</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\base-project-CSharp.Communication\base-project-CSharp.Communication.csproj" />
+    <ProjectReference Include="..\..\Shared\base-project-CSharp.Exceptions\base-project-CSharp.Exceptions.csproj" />
+    <ProjectReference Include="..\base-project-CSharp.Domain\base-project-CSharp.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
