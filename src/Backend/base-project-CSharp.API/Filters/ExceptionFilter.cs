@@ -29,7 +29,7 @@ namespace base_project_CSharp.API.Filters
 
         private void ThrowUnkonownException(ExceptionContext context) {
             context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            context.Result = new ObjectResult(new ResponseErrorJson(ResourceMessagesException.UNKONOWN_ERROR));
+            context.Result = new ObjectResult(new ResponseErrorJson(ResourceMessagesExceptions.UNKONOWN_ERROR));
         }
     }
 }
