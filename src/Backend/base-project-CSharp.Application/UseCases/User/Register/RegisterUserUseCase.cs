@@ -1,5 +1,7 @@
-﻿using base_project_CSharp.Communication.Requests;
+﻿using base_project_CSharp.Application.Services.AutoMapper;
+using base_project_CSharp.Communication.Requests;
 using base_project_CSharp.Communication.Responses;
+using base_project_CSharp.Domain.Entities;
 using base_project_CSharp.Exceptions.ExceptionBase;
 
 namespace base_project_CSharp.Application.UseCases.User.Register
@@ -8,7 +10,14 @@ namespace base_project_CSharp.Application.UseCases.User.Register
     {
         public ResponseRegisterUserJson RegisterUser(RequestRegisterUserJson request)
         {
+            var autoMapper = new AutoMapper.MapperConfiguration(options =>
+            {
+                options.AddProfile(new AutoMapping());
+            }).CreateMapper();
+
             Validate(request);
+
+            var user = autoMapper.Map<UserEntity>(request);
 
             return new ResponseRegisterUserJson
             {
