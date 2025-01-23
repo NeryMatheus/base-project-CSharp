@@ -1,4 +1,5 @@
-﻿using base_project_CSharp.Application.Services.AutoMapper;
+﻿using base_project_CSharp.Application.Cryptography;
+using base_project_CSharp.Application.Services.AutoMapper;
 using base_project_CSharp.Communication.Requests;
 using base_project_CSharp.Communication.Responses;
 using base_project_CSharp.Domain.Entities;
@@ -10,6 +11,7 @@ namespace base_project_CSharp.Application.UseCases.User.Register
     {
         public ResponseRegisterUserJson RegisterUser(RequestRegisterUserJson request)
         {
+            var encrypter = new PasswordEncripter();
             var autoMapper = new AutoMapper.MapperConfiguration(options =>
             {
                 options.AddProfile(new AutoMapping());
@@ -18,6 +20,7 @@ namespace base_project_CSharp.Application.UseCases.User.Register
             Validate(request);
 
             var user = autoMapper.Map<UserEntity>(request);
+            user.Password = encrypter.Encrypt(request.Password);
 
             return new ResponseRegisterUserJson
             {
