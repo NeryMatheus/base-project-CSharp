@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Shared\base-project-CSharp.Communication\base-project-CSharp.Communication.csproj" />
     <ProjectReference Include="..\..\Shared\base-project-CSharp.Exceptions\base-project-CSharp.Exceptions.csproj" />
     <ProjectReference Include="..\base-project-CSharp.Domain\base-project-CSharp.Domain.csproj" />
