@@ -1,26 +1,35 @@
-﻿using base_project_CSharp.Application.Cryptography;
-using base_project_CSharp.Application.Services.AutoMapper;
+﻿using AutoMapper;
+using base_project_CSharp.Application.Cryptography;
 using base_project_CSharp.Communication.Requests;
 using base_project_CSharp.Communication.Responses;
 using base_project_CSharp.Domain.Entities;
+using base_project_CSharp.Domain.Repositories.User;
 using base_project_CSharp.Exceptions.ExceptionBase;
 
 namespace base_project_CSharp.Application.UseCases.User.Register
 {
-    public class RegisterUserUseCase
+    public class RegisterUserUseCase : IRegisterUserUseCase
     {
-        public ResponseRegisterUserJson RegisterUser(RequestRegisterUserJson request)
-        {
-            var encrypter = new PasswordEncripter();
-            var autoMapper = new AutoMapper.MapperConfiguration(options =>
-            {
-                options.AddProfile(new AutoMapping());
-            }).CreateMapper();
 
+        private readonly IUserWriteRepositoryOnly _writeOnlyRepository;
+        private readonly IMapper _mapper;
+        private readonly PasswordEncripter _passwordEncripter;
+
+        public RegisterUserUseCase(IUserWriteRepositoryOnly writeOnlyRepository, IMapper mapper, PasswordEncripter passwordEncripter)
+        {
+            _writeOnlyRepository = writeOnlyRepository;
+            _mapper = mapper;
+            _passwordEncripter = passwordEncripter;
+        }
+
+        public async Task<ResponseRegisterUserJson> RegisterUser(RequestRegisterUserJson request)
+        {
             Validate(request);
 
-            var user = autoMapper.Map<UserEntity>(request);
-            user.Password = encrypter.Encrypt(request.Password);
+            var user = _mapper.Map<UserEntity>(request);
+            user.Password = _passwordEncripter.Encrypt(request.Password);
+
+            await _writeOnlyRepository.Add(user);
 
             return new ResponseRegisterUserJson
             {
