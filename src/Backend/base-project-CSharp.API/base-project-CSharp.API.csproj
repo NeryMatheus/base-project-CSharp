@@ -15,6 +15,7 @@
     <ProjectReference Include="..\..\Shared\base-project-CSharp.Communication\base-project-CSharp.Communication.csproj" />
     <ProjectReference Include="..\..\Shared\base-project-CSharp.Exceptions\base-project-CSharp.Exceptions.csproj" />
     <ProjectReference Include="..\base-project-CSharp.Application\base-project-CSharp.Application.csproj" />
+    <ProjectReference Include="..\base-project-CSharp.Infrastructure\base-project-CSharp.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
