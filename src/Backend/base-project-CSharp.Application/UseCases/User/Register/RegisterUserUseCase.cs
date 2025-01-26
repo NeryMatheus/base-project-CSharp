@@ -3,6 +3,7 @@ using base_project_CSharp.Application.Cryptography;
 using base_project_CSharp.Communication.Requests;
 using base_project_CSharp.Communication.Responses;
 using base_project_CSharp.Domain.Entities;
+using base_project_CSharp.Domain.Repositories;
 using base_project_CSharp.Domain.Repositories.User;
 using base_project_CSharp.Exceptions.ExceptionBase;
 
@@ -14,12 +15,19 @@ namespace base_project_CSharp.Application.UseCases.User.Register
         private readonly IUserWriteRepositoryOnly _writeOnlyRepository;
         private readonly IMapper _mapper;
         private readonly PasswordEncripter _passwordEncripter;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public RegisterUserUseCase(IUserWriteRepositoryOnly writeOnlyRepository, IMapper mapper, PasswordEncripter passwordEncripter)
+        public RegisterUserUseCase(
+            IUserWriteRepositoryOnly writeOnlyRepository, 
+            IMapper mapper, 
+            PasswordEncripter passwordEncripter,
+            IUnitOfWork unitOfWork
+            )
         {
             _writeOnlyRepository = writeOnlyRepository;
             _mapper = mapper;
             _passwordEncripter = passwordEncripter;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<ResponseRegisterUserJson> RegisterUser(RequestRegisterUserJson request)
@@ -30,6 +38,8 @@ namespace base_project_CSharp.Application.UseCases.User.Register
             user.Password = _passwordEncripter.Encrypt(request.Password);
 
             await _writeOnlyRepository.Add(user);
+
+            await _unitOfWork.Commit();
 
             return new ResponseRegisterUserJson
             {

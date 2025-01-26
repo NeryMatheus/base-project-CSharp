@@ -1,4 +1,5 @@
-﻿using base_project_CSharp.Domain.Repositories.User;
+﻿using base_project_CSharp.Domain.Repositories;
+using base_project_CSharp.Domain.Repositories.User;
 using base_project_CSharp.Infrastructure.DataAccess;
 using base_project_CSharp.Infrastructure.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,7 @@ namespace base_project_CSharp.Infrastructure
 
         private static void AddDbContext(IServiceCollection services)
         {
-            var connectionString = "Data Source=localhost;Initial Catalog=recipebook;User ID=sa;Password=Admin@123;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True;";
+            var connectionString = "Server=localhost,1455;Database=recipebook;User ID=sa;Password=Admin@123;Encrypt=True;TrustServerCertificate=True;";
             services.AddDbContext<RecipeBookDbContext>(dbContextOptions =>
             {
                 dbContextOptions.UseSqlServer(connectionString);
@@ -27,6 +28,7 @@ namespace base_project_CSharp.Infrastructure
         {
             services.AddScoped<IUserReadOnlyRepository, UserRepository>();
             services.AddScoped<IUserWriteRepositoryOnly, UserRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }
