@@ -3,28 +3,29 @@ using base_project_CSharp.Domain.Repositories.User;
 using base_project_CSharp.Infrastructure.DataAccess;
 using base_project_CSharp.Infrastructure.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace base_project_CSharp.Infrastructure
 {
     public static class DependencyInjectionExtension
     {
-        public static void AddInfrasctructure(this IServiceCollection services)
+        public static void AddInfrasctructure(this IServiceCollection services, IConfiguration configuration)
         {
-            AddRepositories(services);
-            AddDbContext(services);
+            AddRepositories(services, configuration);
+            AddDbContext(services, configuration);
         }
 
-        private static void AddDbContext(IServiceCollection services)
+        private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = "Server=localhost,1455;Database=recipebook;User ID=sa;Password=Admin@123;Encrypt=True;TrustServerCertificate=True;";
+            var connectionString = configuration.GetConnectionString("Connection");
             services.AddDbContext<RecipeBookDbContext>(dbContextOptions =>
             {
                 dbContextOptions.UseSqlServer(connectionString);
             });
         }
 
-        private static void AddRepositories(IServiceCollection services)
+        private static void AddRepositories(IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IUserReadOnlyRepository, UserRepository>();
             services.AddScoped<IUserWriteRepositoryOnly, UserRepository>();
