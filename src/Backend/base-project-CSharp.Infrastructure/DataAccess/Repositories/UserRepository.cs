@@ -9,6 +9,6 @@ namespace base_project_CSharp.Infrastructure.DataAccess.Repositories
         private readonly RecipeBookDbContext _dbContext;
         public UserRepository(RecipeBookDbContext dbContext) => _dbContext = dbContext;
         public async Task Add(UserEntity user) => await _dbContext.AddAsync(user);
-        public async Task<bool> ExistActiveUserWithEmail(string email) => await _dbContext.Users.AllAsync(user => user.Email.Equals(email) && user.Active);
+        public async Task<bool> ExistActiveUserWithEmail(string email) => await _dbContext.Users.AnyAsync(user => user.Email.Equals(email) && user.Active);
     }
 }
