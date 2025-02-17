@@ -3,9 +3,11 @@ using base_project_CSharp.Domain.Repositories.User;
 using base_project_CSharp.Infrastructure.DataAccess;
 using base_project_CSharp.Infrastructure.DataAccess.Repositories;
 using base_project_CSharp.Infrastructure.Extensions;
+using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace base_project_CSharp.Infrastructure
 {
@@ -15,6 +17,7 @@ namespace base_project_CSharp.Infrastructure
         {
             AddRepositories(services, configuration);
             AddDbContext(services, configuration);
+            AddFluentMigrator_SQLServer(services, configuration);
         }
 
         private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
@@ -31,6 +34,19 @@ namespace base_project_CSharp.Infrastructure
             services.AddScoped<IUserReadOnlyRepository, UserRepository>();
             services.AddScoped<IUserWriteRepositoryOnly, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+        }
+
+        private static void AddFluentMigrator_SQLServer(IServiceCollection services, IConfiguration configuration)
+        {
+            var connectionString = configuration.ConnectionString();
+
+            services.AddFluentMigratorCore().ConfigureRunner(options =>
+            {
+                options
+                 .AddSqlServer()
+                 .WithGlobalConnectionString(connectionString)
+                 .ScanIn(Assembly.Load("base-project-CSharp.Infrastructure")).For.All();
+            });
         }
     }
 }

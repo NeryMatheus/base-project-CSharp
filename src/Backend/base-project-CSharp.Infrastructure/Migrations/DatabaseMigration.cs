@@ -1,12 +1,14 @@
 ﻿using Dapper;
+using FluentMigrator.Runner;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.DependencyInjection;
 
 
 namespace base_project_CSharp.Exceptions.Migrations
 {
     public static class DatabaseMigration
     {
-        public static void Migrate(string connectionString)
+        public static void Migrate(string connectionString, IServiceProvider serviceProvider)
         {
             var connectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
 
@@ -23,6 +25,15 @@ namespace base_project_CSharp.Exceptions.Migrations
 
             if (records.Any() == false)
                 dbConnection.Execute($"CREATE DATABASE {databaseName}");
-        }        
+
+            MigrationDatabase(serviceProvider);
+        }
+        
+        private static void MigrationDatabase(IServiceProvider serviceProvider)
+        {
+            var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
+            runner.ListMigrations();
+            runner.MigrateUp();
+        }
     }
 }
