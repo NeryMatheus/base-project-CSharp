@@ -2,6 +2,7 @@
 using base_project_CSharp.Domain.Repositories.User;
 using base_project_CSharp.Infrastructure.DataAccess;
 using base_project_CSharp.Infrastructure.DataAccess.Repositories;
+using base_project_CSharp.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,8 +19,8 @@ namespace base_project_CSharp.Infrastructure
 
         private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("Connection");
-            services.AddDbContext<RecipeBookDbContext>(dbContextOptions =>
+            var connectionString = configuration.ConnectionString();
+            services.AddDbContext<BaseProjectContext>(dbContextOptions =>
             {
                 dbContextOptions.UseSqlServer(connectionString);
             });
