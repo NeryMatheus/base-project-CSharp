@@ -9,12 +9,15 @@ namespace base_project_CSharp.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        public UserController(IRegisterUserUseCase useCase) { }
+
         [HttpPost]
         [ProducesResponseType(typeof(ResponseRegisterUserJson), StatusCodes.Status201Created)]
-        public IActionResult RegisterUser(RequestRegisterUserJson request)
+        public async Task<IActionResult> RegisterUser(
+            [FromServices] IRegisterUserUseCase useCase,
+            [FromBody] RequestRegisterUserJson request)
         {
-            var useCase = new RegisterUserUseCase();
-            var result = useCase.RegisterUser(request);
+            var result = await useCase.RegisterUser(request);
             return Created(string.Empty, result);
         }
     }

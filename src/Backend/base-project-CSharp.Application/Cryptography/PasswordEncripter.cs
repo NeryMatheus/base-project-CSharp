@@ -5,12 +5,14 @@ namespace base_project_CSharp.Application.Cryptography
 {
     public class PasswordEncripter
     {
+
+        private readonly string _addictionalKey;
+        public PasswordEncripter(string addictionalKey) => _addictionalKey = addictionalKey;
         public string Encrypt(string password)
         {
-            var addictionalKey = "ABC";
-            string newPassword = $"{password}{addictionalKey}";
+            string newPassword = $"{password}{_addictionalKey}";
 
-            var bytes = Encoding.UTF8.GetBytes(password);
+            var bytes = Encoding.UTF8.GetBytes(newPassword);
             var hashBytes = SHA512.HashData(bytes);
 
             return StringBytes(hashBytes);
