@@ -1,7 +1,9 @@
 using base_project_CSharp.API.Filters;
 using base_project_CSharp.API.Middleware;
 using base_project_CSharp.Application;
+using base_project_CSharp.Exceptions.Migrations;
 using base_project_CSharp.Infrastructure;
+using base_project_CSharp.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,4 +36,15 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+MigrateDatabase();
+
 app.Run();
+
+void MigrateDatabase()
+{
+    var connectionString = builder.Configuration.ConnectionString();
+    
+    var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+    DatabaseMigration.Migrate(connectionString, serviceScope.ServiceProvider);
+}
