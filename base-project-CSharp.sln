@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "base-project-CSharp.Domain"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "base-project-CSharp.Infrastructure", "src\Backend\base-project-CSharp.Infrastructure\base-project-CSharp.Infrastructure.csproj", "{2C5FB5E4-5F27-4A2E-BF81-2546C4D29515}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validators.Test", "tests\Validators.Test\Validators.Test.csproj", "{88BD0198-3F61-4D44-834A-130891EBA986}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTestUtilities", "tests\CommonTestUtilities\CommonTestUtilities.csproj", "{2B86513E-73B1-4A13-8957-531B66D9B08D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +57,14 @@ Global
 		{2C5FB5E4-5F27-4A2E-BF81-2546C4D29515}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C5FB5E4-5F27-4A2E-BF81-2546C4D29515}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C5FB5E4-5F27-4A2E-BF81-2546C4D29515}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88BD0198-3F61-4D44-834A-130891EBA986}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88BD0198-3F61-4D44-834A-130891EBA986}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88BD0198-3F61-4D44-834A-130891EBA986}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88BD0198-3F61-4D44-834A-130891EBA986}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B86513E-73B1-4A13-8957-531B66D9B08D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B86513E-73B1-4A13-8957-531B66D9B08D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B86513E-73B1-4A13-8957-531B66D9B08D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B86513E-73B1-4A13-8957-531B66D9B08D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,5 +78,7 @@ Global
 		{F73D5053-D519-44E7-967A-AB04784BD2D7} = {873F38ED-8757-4D4C-87E8-4D13230C11FD}
 		{66D4B694-52F2-4347-B780-18CF296D83DC} = {873F38ED-8757-4D4C-87E8-4D13230C11FD}
 		{2C5FB5E4-5F27-4A2E-BF81-2546C4D29515} = {873F38ED-8757-4D4C-87E8-4D13230C11FD}
+		{88BD0198-3F61-4D44-834A-130891EBA986} = {87FD2B16-FC6B-4276-BC06-C50882FA6643}
+		{2B86513E-73B1-4A13-8957-531B66D9B08D} = {87FD2B16-FC6B-4276-BC06-C50882FA6643}
 	EndGlobalSection
 EndGlobal
