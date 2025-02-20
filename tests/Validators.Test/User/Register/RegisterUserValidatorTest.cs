@@ -70,7 +70,6 @@ namespace Validators.Test.User.Register
         {
             var validator = new RegisterUserValidator();
             var request = RequestRegisterUserJsonBuilder.Build(passwordLength);
-            request.Email = "Email.com";
 
             var result = validator.Validate(request);
 
