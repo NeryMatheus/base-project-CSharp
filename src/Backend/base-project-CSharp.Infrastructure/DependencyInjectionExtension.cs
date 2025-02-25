@@ -16,6 +16,10 @@ namespace base_project_CSharp.Infrastructure
         public static void AddInfrasctructure(this IServiceCollection services, IConfiguration configuration)
         {
             AddRepositories(services, configuration);
+            
+            if (configuration.IsUnitTestEnviroment())
+                return;
+
             AddDbContext(services, configuration);
             AddFluentMigrator_SQLServer(services, configuration);
         }
